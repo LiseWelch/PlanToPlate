@@ -1,0 +1,110 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+
+    <environment include="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"
+              crossorigin="anonymous"
+              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"/>
+    </environment>
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-toggleable-lg navbar-dark bg-dark border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <img src="~/img/Logo.png" width="55" height="50" class="d-inline-block align-top mr-2" alt="">
+                <a class="nav-link text-light h2 mb-0" style="margin-left: -10px;" asp-area="Index" asp-controller="Home" asp-action="Index">PlanToPlate</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-lg-inline-flex flex-lg-row-reverse">
+                    <ul class="navbar-nav flex-grow-1">
+                        @{
+                            @if (@ViewBag.Login==false)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link h5 mt-1 mb-0 mx-3" style="font-weight: 100;" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link h5 mt-1 mb-0" style="font-weight: 100;" asp-area="" asp-controller="Home" asp-action="Index">Info</a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link h5 mt-1 mb-0 mx-2" style="font-weight: 100;" asp-controller="Home" asp-action="Dashboard">Dashboard</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link h5 mt-1 mb-0 mx-2" style="font-weight: 100;" asp-controller="Week" asp-action="Index">Weeks</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link h5 mt-1 mb-0 mx-2" style="font-weight: 100;" asp-controller="Recipe" asp-action="Index">Recipes</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link h5 mt-1 mb-0 mx-2" style="font-weight: 100;" asp-controller="List" asp-action="ViewLists">Lists</a>
+                                </li>
+
+                            }
+                        }
+                    </ul>
+                </div>
+                @{
+                        @if (@ViewBag.Login==true)
+                        {
+                            <p class="navbar-text h5 mt-1 mb-0 mx-2" style="font-weight: 100;">
+                                Welcome @ViewData["Username"]
+                            </p>
+                            <a class="nav-link text-light" style="font-weight: 100;" asp-controller="Login" asp-action="Logout">(Logout)</a>
+                        }
+                    }
+            </div>
+        </nav>
+    </header>
+    <div class="container-fluid">
+        <main role="main" class="pb-3 CustomBar">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted bg-light">
+        <div class="container text-center">
+            &copy; 2019 - PlanToPlate
+        </div>
+    </footer>
+
+    <environment include="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery"
+                crossorigin="anonymous"
+                integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=">
+        </script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                crossorigin="anonymous"
+                integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o">
+        </script>
+    </environment>
+    <script src="~/lib/signalr/dist/browser/signalr.js"></script>
+    <script src="~/js/Dashboard.js" asp-append-version="true"></script>
+    <script src="~/js/AddRecipe.js"></script>
+    <script src="~/js/AddItem.js"></script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

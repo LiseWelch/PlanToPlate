@@ -1,0 +1,85 @@
+@{
+    ViewData["Title"] = "Login and Register";
+}
+@model Login
+
+<div class="row justify-content-center align-items-center" style="height: 87vh;"> 
+    <div class="col-sm-4 mx-5 p-4" style="background: rgba(255, 255, 255, 0.7); border-radius: 5px;">
+    <div class="row justify-content-start">
+        <h1 class="display-4 col-sm-3">Register</h1>
+    </div>
+    <form class="mx-2" asp-action="Register" asp-controller="Login" method="post">
+        <div class="form-group row my-4">
+            <label class="col-sm-4 col-form-label" asp-for="NewUser.FirstName"></label>
+            <div class="col-sm-8">
+                <input class="form-control" asp-for="NewUser.FirstName">
+                <span class="text-danger" asp-validation-for="NewUser.FirstName"></span>
+            </div>
+        </div>
+        <div class="form-group row my-4">
+            <label class="col-sm-4 col-form-label" asp-for="NewUser.LastName"></label>
+            <div class="col-sm-8">
+                <input class="form-control" asp-for="NewUser.LastName">
+                <span class="text-danger" asp-validation-for="NewUser.LastName"></span>
+            </div>
+        </div>
+        <div class="form-group row my-4">
+            <label class="col-sm-4 col-form-label" asp-for="NewUser.Username"></label>
+            <div class="col-sm-8">
+                <input class="form-control" asp-for="NewUser.Username">
+                <span class="text-danger" asp-validation-for="NewUser.Username"></span>
+            </div>
+        </div>
+        <div class="form-group row my-4">
+            <label class="col-sm-4 col-form-label" asp-for="NewUser.Email"></label>
+            <div class="col-sm-8">
+                <input class="form-control" asp-for="NewUser.Email">
+                <span class="text-danger" asp-validation-for="NewUser.Email"></span>
+            </div>
+        </div>
+        <div class="form-group row my-4">
+            <label class="col-sm-4 col-form-label" asp-for="NewUser.Password"></label>
+            <div class="col-sm-8">
+                <input class="form-control" asp-for="NewUser.Password">
+                <span class="text-danger" asp-validation-for="NewUser.Password"></span>
+            </div>
+        </div>
+        <div class="form-group row my-4">
+            <label class="col-sm-4 col-form-label" asp-for="NewUser.Confirm"></label>
+            <div class="col-sm-8">
+                <input class="form-control" asp-for="NewUser.Confirm">
+                <span class="text-danger" asp-validation-for="NewUser.Confirm"></span>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+           <button type="submit" class="btn btn-secondary">Register</button>
+        </div>
+    </form>
+    </div>
+    <div class="col-sm-4"> 
+        <div class="mx-5 p-4 my-5" style="background: rgba(255, 255, 255, 0.7); border-radius: 5px;">
+        <div class="row justify-content-start">
+            <h1 class="display-4 col-sm-3">Login</h1>
+        </div>
+        <form class="m-2" asp-action="Login" asp-controller="Login" method="post">
+            <div class="form-group row my-4">
+                <label class="col-sm-4 col-form-label" asp-for="OldUser.Email"></label>
+                <div class="col-sm-8">
+                    <input class="form-control" asp-for="OldUser.Email">
+                    <span class="text-danger" asp-validation-for="OldUser.Email"></span>
+                </div>
+            </div>
+            <div class="form-group row my-4">
+                <label class="col-sm-4 col-form-label" asp-for="OldUser.Password"></label>
+                <div class="col-sm-8">
+                    <input class="form-control" asp-for="OldUser.Password">
+                    <span class="text-danger" asp-validation-for="OldUser.Password"></span>
+                </div>
+            </div>
+        <div class="row justify-content-center">
+            <button type="submit" class="btn btn-secondary">Login</button>
+            </div>
+        </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,144 @@
+@model WeekView
+@{
+    ViewData["Title"] = "Your Weeks";
+    ViewData["Username"] = Model.user.Username;
+}
+
+<div class="container-fluid">
+    <div class="row justify-content-center align-items-center" style="height: 85vh;">
+        <div class="row justify-content-center align-items-center">
+            <div class="List p-2">
+                <div class="row justify-content-between px-3">
+                    <h1 class="mx-2 display-4">This Week</h1>
+                    <div class="bg-dark mx-2 py-2 align-self-center text-left row justify-content-end" style="border-radius: 10px; width: 83%">
+                        <p class="mx-4 text-light align-self-center" style="font-size: 20px;">&nbsp</p>
+                    </div>
+                </div>
+                <div class="row p-2">
+                    @{
+                        for (int x = 0; x < 6; x++)
+                        {
+                            string TWname = @Model.ThisWeek.days[x].date.ToString("ddd");
+                            string TWdate = @Model.ThisWeek.days[x].date.ToString("MM/dd/yy");
+                            <div class="col px-2 WeekDay border-right border-secondary" style="width: 12vw">
+                                <a href="day/@Model.ThisWeek.days[x].DayID" style="text-decoration: none;"><div class="row justify-content-between align-items-center mx-2 px-2 py-1 bg-dark text-light WeekDayHeader" style="border-radius: 5px;">
+                                    <h2 class="mx-1 mb-0">@TWname</h2>
+                                    <p class="mx-2">@TWdate</p>
+                                </div></a>
+                                <div class="CustomBar my-2 px-3">
+                                    <h4>Breakfast</h4>
+                                    @foreach (Breakfast b in @Model.ThisWeek.days[x].breakfast)
+                                    {
+                                        <a href="/recipes/@b.RecipeID" class="text-dark mx-3">@b.recipe.Name</a>
+                                    }
+                                    <h4>Lunch</h4>
+                                    @foreach (Lunch L in @Model.ThisWeek.days[x].lunch)
+                                    {
+                                        <a href="/recipes/@L.RecipeID" class="text-dark mx-3">@L.recipe.Name</a>
+                                    }
+                                    <h4>Dinner</h4>
+                                    @foreach (Dinner d in @Model.ThisWeek.days[x].dinner)
+                                    {
+                                        <a href="/recipes/@d.RecipeID" class="text-dark mx-3">@d.recipe.Name</a>
+                                    }
+                                </div>
+                            </div>
+                        }
+                            string TWLname = @Model.ThisWeek.days[6].date.ToString("ddd");
+                            string TWLdate = @Model.ThisWeek.days[6].date.ToString("MM/dd/yy");
+                            <div class="col px-2 WeekDay" style="width: 12vw">
+                                <a href="day/@Model.ThisWeek.days[6].DayID" style="text-decoration: none;"><div class="row justify-content-between align-items-center mx-2 px-2 py-1 bg-dark text-light WeekDayHeader" style="border-radius: 5px;">
+                                    <h2 class="mx-1 mb-0">@TWLname</h2>
+                                    <p class="mx-2">@TWLdate</p>
+                                </div></a>
+                                <div class="CustomBar my-2 px-3">
+                                    <h4>Breakfast</h4>
+                                    @foreach (Breakfast b in @Model.ThisWeek.days[6].breakfast)
+                                    {
+                                        <a href="/recipes/@b.RecipeID" class="text-dark mx-3">@b.recipe.Name</a>
+                                    }
+                                    <h4>Lunch</h4>
+                                    @foreach (Lunch L in @Model.ThisWeek.days[6].lunch)
+                                    {
+                                        <a href="/recipes/@L.RecipeID" class="text-dark mx-3">@L.recipe.Name</a>
+                                    }
+                                    <h4>Dinner</h4>
+                                    @foreach (Dinner d in @Model.ThisWeek.days[6].dinner)
+                                    {
+                                        <a href="/recipes/@d.RecipeID" class="text-dark mx-3">@d.recipe.Name</a>
+                                    }
+                                </div>
+                            </div>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="my-3 row justify-content-center align-items-center">
+            <div class="List p-2">
+                <div class="row justify-content-between px-3">
+                    <h1 class="mx-2 display-4">Next Week</h1>
+                    <div class="bg-dark mx-2 py-2 align-self-center text-left row justify-content-end" style="border-radius: 10px; width: 83%">
+                        <p class="mx-4 text-light align-self-center" style="font-size: 20px;">&nbsp</p>
+                    </div>
+                </div>
+                <div class="row p-2">
+                    @{
+                        for (int y = 0; y < 6; y++)
+                        {
+                            string NWname = @Model.NextWeek.days[y].date.ToString("ddd");
+                            string NWdate = @Model.NextWeek.days[y].date.ToString("MM/dd/yy");
+                            <div class="col px-2 WeekDay border-right border-secondary" style="width: 12vw">
+                                <a href="day/@Model.NextWeek.days[y].DayID" style="text-decoration: none;"><div class="row justify-content-between align-items-center mx-2 px-2 py-1 bg-dark text-light WeekDayHeader" style="border-radius: 5px;">                              
+                                    <h2 class="mx-1 mb-0">@NWname</h2>
+                                    <p class="mx-2">@NWdate</p>
+                                </div></a>
+                                <div class="CustomBar my-2 px-3">
+                                    <h4>Breakfast</h4>
+                                    @foreach (Breakfast b in @Model.NextWeek.days[y].breakfast)
+                                    {
+                                        <a href="/recipes/@b.RecipeID" class="text-dark mx-3">@b.recipe.Name</a>
+                                    }
+                                    <h4>Lunch</h4>
+                                    @foreach (Lunch L in @Model.NextWeek.days[y].lunch)
+                                    {
+                                        <a href="/recipes/@L.RecipeID" class="text-dark mx-3">@L.recipe.Name</a>
+                                    }
+                                    <h4>Dinner</h4>
+                                    @foreach (Dinner d in @Model.NextWeek.days[y].dinner)
+                                    {
+                                        <a href="/recipes/@d.RecipeID" class="text-dark mx-3">@d.recipe.Name</a>
+                                    }
+                                </div>
+                            </div>
+                        }
+                            string NWLname = @Model.NextWeek.days[6].date.ToString("ddd");
+                            string NWLdate = @Model.NextWeek.days[6].date.ToString("MM/dd/yy");
+                            <div class="col px-2 WeekDay" style="width: 12vw">
+                                <a href="day/@Model.NextWeek.days[6].DayID" style="text-decoration: none;"><div class="row justify-content-between align-items-center mx-2 px-2 py-1 bg-dark text-light WeekDayHeader" style="border-radius: 5px;">
+                                    <h2 class="mx-1 mb-0">@NWLname</h2>
+                                    <p class="mx-2">@NWLdate</p>
+                                </div></a>
+                                <div class="CustomBar my-2 px-3">
+                                    <h4>Breakfast</h4>
+                                    @foreach (Breakfast b in @Model.NextWeek.days[6].breakfast)
+                                    {
+                                        <a href="/recipes/@b.RecipeID" class="text-dark mx-3">@b.recipe.Name</a>
+                                    }
+                                    <h4>Lunch</h4>
+                                    @foreach (Lunch L in @Model.NextWeek.days[6].lunch)
+                                    {
+                                        <a href="/recipes/@L.RecipeID" class="text-dark mx-3">@L.recipe.Name</a>
+                                    }
+                                    <h4>Dinner</h4>
+                                    @foreach (Dinner d in @Model.NextWeek.days[6].dinner)
+                                    {
+                                        <a href="/recipes/@d.RecipeID" class="text-dark mx-3">@d.recipe.Name</a>
+                                    }
+                                </div>
+                            </div>
+                    }   
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

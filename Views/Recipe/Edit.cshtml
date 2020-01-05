@@ -1,0 +1,112 @@
+@model RecipeView
+@{
+    ViewData["Title"] = "Your Recipes";
+    ViewData["Username"] = Model.user.Username;
+}
+
+<div class="container-fluid">
+    <div class="row justify-content-center" style="height: 85vh;">
+        <div class="col-sm-4 align-self-center" style="height: 90%;">
+            <div class="List py-2 px-2 mx-4" style="height: 100%;">
+                <div class="row justify-content-between align-items-center px-2 mx-0 bg-dark text-light DayHeader">
+                    <h1 class="mx-2">Your Recipes</h1>
+                </div>
+                <div class="CustomBar" style="height: 94%;">
+                <ul class="py-1 px-3" style="list-style: none;">
+                    @{
+                        foreach (Recipe r in Model.user.CreatedRecipes)
+                        {
+                            <a href="/recipes/@r.RecipeID" class="text-dark"><li class="mx-3 my-2">@r.Name</li></a>
+                        }
+                    }
+                </ul>
+                </div>
+            </div>
+        </div>
+         <div class="col-sm-8 align-self-center" style="height: 90%;">
+            <div class="List py-2 px-2 mx-4" style="height: 100%;">
+                <form asp-action="Save" asp-controller="Recipe" asp-route-id="@Model.recipe.RecipeID" method="post">
+                    <input type="hidden" id="createdAt" asp-for="recipe.CreatedID" value="@Model.CreatedID">
+                    <input type="hidden" id="RecipeID" value="@Model.recipe.RecipeID">
+                <div class="row justify-content-between align-items-center px-2 mx-0 bg-dark text-light DayHeader">
+                    <h1 class="mx-2">Edit Recipe</h1>
+                    <button type="submit" class="col-sm-2 btn btn-light btn-sm mx-2">Done</button>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-sm-6 border-right border-secondary mt-3 px-4">
+                        <h1 class="mx-2" style="font-weight: 100;">Recipe Info</h1>
+                        <div class="form-group row ml-4 my-4 mr-2">
+                            <label class="col-sm-4 col-form-label" asp-for="recipe.Name">Recipe Name :</label>
+                            <div class="col-sm-8">
+                                <input class="form-control" asp-for="recipe.Name" value="@Model.recipe.Name">
+                                <span class="text-danger" asp-validation-for="recipe.Name"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row ml-4 my-4 mr-2">
+                            <label class="col-sm-4 col-form-label" asp-for="recipe.PrepTimeInt">Prep Time :</label>
+                            <div class="col-sm-4 pr-2">
+                                <input class="form-control" asp-for="recipe.PrepTimeInt" value="@Model.recipe.PrepTimeInt">
+                                <span class="text-danger" asp-validation-for="recipe.PrepTimeInt"></span>
+                            </div>
+                            <div class="col-sm-4">
+                                <select class="form-control" asp-for="recipe.PrepTimeString" value="@Model.recipe.PrepTimeString">
+                                    <option class="form-control" value="Hours">Hours</option>
+                                    <option class="form-control" value="Minutes">Minutes</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row ml-4 my-2 mr-2">
+                            <label class="col-sm-4 col-form-label" asp-for="recipe.Instructions">Directions :</label>
+                            <textarea class="form-control CustomBar ml-4 mr-2" asp-for="recipe.Instructions" style="height: 45vh;">@Model.recipe.Instructions</textarea>
+                            <span class="text-danger" asp-validation-for="recipe.Instructions"></span>
+                        </div>
+                        </div>
+                    </form>
+                    <div class="col-sm-6 px-4">
+                        <form>
+                            <h1 class="mt-3 mx-2" id="ItemForm" style="font-weight: 100;">Ingriedient List</h1>
+                        <div class="form-group row  ml-4 my-4 mr-2">
+                            <label class="col-sm-4 col-form-label" asp-for="NewIngriedient.Name">Ingriedient Name :</label>
+                            <div class="col-sm-8">
+                                <input class="form-control" asp-for="NewIngriedient.Name" id="ItemName">
+                                <span class="text-danger" asp-validation-for="NewIngriedient.Name"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row  ml-4 my-4 mr-2 align-items-center">
+                            <label class="col-sm-4 col-form-label" asp-for="NewIngriedient.AmountNum">Amount :</label>
+                            <div class="col-sm-3 pr-2">
+                                <input class="form-control" asp-for="NewIngriedient.AmountNum" id="AmountNum">
+                                <span class="text-danger" asp-validation-for="NewIngriedient.AmountNum"></span>
+                            </div>
+                            <div class="col-sm-3 pr-0">
+                                <select class="form-control" asp-for="NewIngriedient.AmountString" id="AmountString">
+                                        @{
+                                            foreach (string s in @Model.measurements)
+                                            {
+                                                <option class="form-control" value="@s">@s</option>
+                                            }
+                                        }
+                                    </select>
+                            </div>
+                            <div class="col-sm-1 px-0 pr-0">
+                                <input type="hidden" id="user" value="@Model.user.UserID">
+                                <button type="button" id="AddItem" class="btn btn-dark ml-4">Add</button>
+                            </div>
+                        </div>
+                        </form>
+                        <div class="CustomBar" style="max-height: 50vh">
+                                <ul id="ItemList" style="list-style: none;">
+                                    @{
+                                        foreach (RIAssoc i in @Model.recipe.ingriedients)
+                                            {
+                                                <li id="@i.ingriedient.IngriedientID" class="item">@i.ingriedient.AmountNum @i.ingriedient.AmountString @i.ingriedient.Name </li>
+                                            }
+                                    }
+                                </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

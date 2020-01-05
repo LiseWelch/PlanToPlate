@@ -1,0 +1,60 @@
+
+@model RecipeView
+@{
+    ViewData["Title"] = "Your Recipes";
+    ViewData["Username"] = Model.user.Username;
+}
+
+<div class="container-fluid">
+    <div class="row justify-content-center" style="height: 85vh;">
+        <div class="col-sm-4 align-self-center" style="height: 90%;">
+            <div class="List py-2 px-2 mx-4" style="height: 100%;">
+                <div class="row justify-content-between align-items-center px-2 mx-0 bg-dark text-light DayHeader">
+                    <h1 class="mx-2">Your Recipes</h1>
+                    <a asp-controller="Recipe" asp-action="Add" class="col-sm-3"><button type="button" class="col-sm-12 btn btn-light btn-sm mx-2">Add</button></a>
+                </div>
+                <div class="CustomBar" style="height: 94%;">
+                <ul class="py-1 px-3" style="list-style: none;">
+                    @{
+                        foreach (Recipe r in Model.user.CreatedRecipes)
+                        {
+                            <a href="/recipes/@r.RecipeID" class="text-dark"><li class="mx-3 my-2">@r.Name</li></a>
+                        }
+                    }
+                </ul>
+                </div>
+            </div>
+        </div>
+         <div class="col-sm-8 align-self-center" style="height: 90%;">
+            <div class="List py-2 px-2 mx-4" style="height: 100%;">
+                @{
+                    @if (@Model.recipe!=null)
+                    {
+                         <div class="row align-items-center px-2 mx-0 bg-dark text-light DayHeader">
+                            <h1 class="col-sm-4">@Model.recipe.Name</h1>
+                            <a class="col-sm-2 offset-sm-4" href="/recipes/edit/@Model.recipe.RecipeID"><button type="button" class="col-sm-12 btn btn-light btn-sm mx-2">Edit</button></a>
+                            <a class="col-sm-2" href="/recipes/delete/@Model.recipe.RecipeID"><button type="button" class="col-sm-12 btn btn-light btn-sm mx-2">Delete</button></a>
+                        </div>
+                            <h3 class="px-3 pt-3" style="font-weight: 200;">Preparation Time: @Model.recipe.PrepTimeInt @Model.recipe.PrepTimeString</h3>
+                            <h3 class="px-3" style="font-weight: 200;">Ingriedients:</h3>
+                            <div class="CustomBar px-3" style="height: 30%;">
+                                <ul class="px-3" style="list-style: none;">
+                                    @{
+                                        foreach (RIAssoc i in @Model.recipe.ingriedients)
+                                        {
+                                            <li class="mx-3 mb-2">@i.ingriedient.AmountNum @i.ingriedient.AmountString @i.ingriedient.Name</li>
+                                        }
+                                    }
+                                </ul>
+                            </div>
+                            <h3 class="my-2 px-3" style="font-weight: 200;">Directions:</h3>
+                            <div class="CustomBar my-1 px-3">
+                                <p class="px-4" style="height: 30vh;">@Model.recipe.Instructions</p>
+                            </div>
+                    }
+                }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

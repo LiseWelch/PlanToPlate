@@ -1,0 +1,90 @@
+@model DayView
+@{
+    ViewData["Title"] = @Model.day.date.ToString("MM/dd/yy");
+    ViewData["Username"] = Model.user.Username;
+}
+
+<div class="container-fluid">
+    <div class="row justify-content-center align-items-center" style="height: 85vh;">
+        <div class="List p-2 col-sm-10">
+            <input type="hidden" id="dayid" value="@Model.day.DayID">
+            <div class="row justify-content-between px-3">
+                <h1 class="mx-2 display-4">@Model.day.date.ToString("dddd")</h1>
+                <div class="bg-dark mx-2 py-2 align-self-center text-left row justify-content-end" style="border-radius: 10px; width: 82%">
+                    <h2 class="mx-4 text-light align-self-center" style="font-weight: 100;">@Model.day.date.ToString("MM/dd/yy")</h2>
+                </div>
+            </div>
+            <div class="row p-2">
+                <div class="col-sm-4 px-2 WeekDay border-right border-secondary" style="width: 12vw">
+                    <div class="row justify-content-between align-items-center mx-2 px-2 py-1 bg-dark text-light WeekDayHeader" style="border-radius: 5px;">
+                        <h2 class="m-1">Breakfast</h2>
+                    </div>
+                    <div class="form-group row mx-2 mt-3">
+                        <div class="col-sm-10 pl-0 pr-3">
+                        <select name="breakfast" class="form-control">
+                            @foreach (Recipe r in @Model.recipes)
+                            {
+                                <option class="form-control" value="@r.RecipeID">@r.Name</option>
+                            }
+                        </select>
+                        </div>
+                        <button type="button" id="AddBRecipe" class="btn btn-dark btn-sm col-sm-2">Add</button>
+                    </div>
+                    <div class="CustomBar my-2 px-3 bRecipes">
+                        <h4>Recipes</h4>
+                        @foreach (Breakfast b in @Model.day.breakfast)
+                                    {
+                                        <a href="/recipes/@b.RecipeID" id="b.recipe.RecipeID" class="recipe B-r text-dark mx-3">@b.recipe.Name</a>
+                                    }
+                    </div>
+                </div>
+                <div class="col-sm-4 px-2 WeekDay border-right border-secondary" style="width: 12vw">
+                    <div class="row justify-content-between align-items-center mx-2 px-2 py-1 bg-dark text-light WeekDayHeader" style="border-radius: 5px;">
+                        <h2 class="m-1">Lunch</h2>
+                    </div>
+                    <div class="form-group row mx-2 mt-3">
+                        <div class="col-sm-10 pl-0 pr-3">
+                        <select id="breakfast" class="form-control">
+                            @foreach (Recipe r in @Model.recipes)
+                            {
+                                <option class="form-control" value="@r.RecipeID">@r.Name</option>
+                            }
+                        </select>
+                        </div>
+                        <button type="button" id="Ladd" class="btn btn-dark btn-sm col-sm-2">Add</button>
+                    </div>
+                    <div class="CustomBar my-2 px-3">
+                        <h4>Recipes</h4>
+                        @foreach (Lunch L in @Model.day.lunch)
+                                    {
+                                        <a href="/recipes/@L.RecipeID" id="L.recipe.RecipeID" class="recipe text-dark mx-3">@L.recipe.Name</a>
+                                    }
+                    </div>
+                </div>
+                <div class="col-sm-4 px-2 WeekDay" style="width: 12vw">
+                    <div class="row justify-content-between align-items-center mx-2 px-2 py-1 bg-dark text-light WeekDayHeader" style="border-radius: 5px;">
+                        <h2 class="m-1">Dinner</h2>
+                    </div>
+                    <div class="form-group row mx-2 mt-3">
+                        <div class="col-sm-10 pl-0 pr-3">
+                        <select id="breakfast" class="form-control">
+                            @foreach (Recipe r in @Model.recipes)
+                            {
+                                <option class="form-control" value="@r.RecipeID">@r.Name</option>
+                            }
+                        </select>
+                        </div>
+                        <button type="button" id="edit" class="btn btn-dark btn-sm col-sm-2">Add</button>
+                    </div>
+                    <div class="CustomBar my-2 px-3">
+                        <h4>Recipes</h4>
+                        @foreach (Dinner d in @Model.day.dinner)
+                                    {
+                                        <a href="/recipes/@d.RecipeID" id="d.recipe.RecipeID" class="recipe text-dark mx-3">@d.recipe.Name</a>
+                                    }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
